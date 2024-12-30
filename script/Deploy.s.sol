@@ -27,12 +27,9 @@ contract Deploy is Script {
         vm.startBroadcast();
 
         // deploy resolver
-        bytes memory resolverInitCode = abi.encodePacked(type(ExclusiveDelegateResolver).creationCode);
-        resolver = ExclusiveDelegateResolver(
-            ImmutableCreate2Factory(0x0000000000FFe8B47B3e2130213B802212439497).safeCreate2(salt, resolverInitCode)
-        );
-        vm.stopBroadcast();
 
-        console2.logBytes32(keccak256(resolverInitCode));
+        ExclusiveDelegateResolver resolver = new ExclusiveDelegateResolver{salt: bytes32(0)}();
+        console.log("resolver", address(resolver));
+        vm.stopBroadcast();
     }
 }
