@@ -27,10 +27,11 @@ contract ExclusiveDelegateResolverTest is Test {
     function setUp() public {
         // fork mainnet at block 21388707
         vm.createSelectFork("mainnet", 21388707);
+        vm.etch(address(0x6b176c958fb89Ddca0fc8214150DA4c4D0a32fbe), address(0x00000000000000447e69651d841bD8D104Bed493).code);
 
         resolver = new ExclusiveDelegateResolver();
         mockERC721 = new MockERC721();
-        delegateRegistry = IDelegateRegistry(0x00000000000000447e69651d841bD8D104Bed493);
+        delegateRegistry = IDelegateRegistry(0x6b176c958fb89Ddca0fc8214150DA4c4D0a32fbe);
 
         rightsWithFutureExpiration = resolver.generateRightsWithExpiration(RIGHTS, FUTURE_EXPIRATION);
         rightsWithPastExpiration = resolver.generateRightsWithExpiration(RIGHTS, PAST_EXPIRATION);
